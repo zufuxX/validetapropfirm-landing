@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ValideTaPropFirm — Préparation aux challenges de prop firms</title>
+<meta name="description" content="VTPF : communauté et méthode de préparation aux challenges de prop firms. Service de formation et d'accompagnement. Trading à risque — aucun résultat garanti. 18+.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="ValideTaPropFirm — Préparation aux challenges de prop firms">
+<meta property="og:description" content="Communauté et méthode de préparation aux challenges de prop firms. Service de formation. Trading à risque, aucun résultat garanti. 18+.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://validetapropfirm.vercel.app/">
+<meta property="og:image" content="https://validetapropfirm.vercel.app/validetapropfirm.jpeg">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+  :root{
+    --bg1:#0a1024; --bg2:#141d47;
+    --card:#ffffff; --ink:#0f172a; --muted:#64748b; --line:#e6eaf2;
+    --brand1:#2563eb; --brand2:#1d4ed8;
+    --warn-bg:#fff7e8; --warn-bd:#f3d489; --warn-ink:#7a531a;
+    --foot:#9fb0d6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{min-height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%,#1c2a5e 0%,var(--bg2) 35%,var(--bg1) 100%);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    display:flex;flex-direction:column;align-items:center;
+    padding:28px 16px 120px;
+  }
+
+  /* Bandeau risque global, au-dessus de la carte */
+  .toprisk{
+    width:100%;max-width:460px;
+    display:flex;align-items:center;gap:8px;justify-content:center;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.14);
+    color:#dbe4fb;
+    font-size:12.5px;font-weight:600;letter-spacing:.2px;
+    padding:9px 14px;border-radius:12px;margin-bottom:16px;text-align:center;
+  }
+
+  .card{
+    background:var(--card);
+    border-radius:24px;
+    padding:34px 26px 28px;
+    box-shadow:0 18px 60px rgba(4,10,30,.45);
+    max-width:460px;width:100%;text-align:center;
+  }
+
+  .avatar-wrapper{display:flex;justify-content:center;margin-bottom:18px;}
+  .avatar{
+    width:112px;height:112px;border-radius:50%;overflow:hidden;
+    background:linear-gradient(135deg,#0f1c44,#22337a);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:800;font-size:30px;letter-spacing:1px;
+    box-shadow:0 8px 24px rgba(15,28,68,.35);
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  .name{font-size:25px;font-weight:800;color:#0b1228;margin-bottom:4px;}
+  .brandtag{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;
+    color:#2563eb;background:#eef3ff;border-radius:999px;padding:4px 10px;margin-bottom:14px;
+  }
+  .tagline{font-size:15px;color:#334155;line-height:1.5;margin-bottom:10px;}
+  .servicenote{
+    font-size:12.5px;color:var(--muted);line-height:1.5;
+    background:#f6f8fc;border:1px solid var(--line);border-radius:12px;
+    padding:10px 12px;margin:0 auto 22px;max-width:380px;
+  }
+
+  .bullets{list-style:none;text-align:left;max-width:380px;margin:0 auto 22px;}
+  .bullets li{
+    font-size:14.5px;color:#1e293b;padding:9px 0;
+    display:flex;align-items:flex-start;gap:10px;line-height:1.5;
+    border-bottom:1px solid var(--line);
+  }
+  .bullets li:last-child{border-bottom:none;}
+  .bullets li.warn{color:var(--warn-ink);font-weight:600;}
+  .bullets .emoji{flex-shrink:0;font-size:18px;line-height:1.4;}
+
+  .pre-cta{font-size:14.5px;font-weight:600;color:#0f172a;margin-bottom:14px;}
+
+  .cta-button{
+    display:inline-block;width:100%;max-width:340px;
+    background:linear-gradient(135deg,var(--brand1),var(--brand2));
+    color:#fff;text-decoration:none;font-size:16px;font-weight:700;
+    letter-spacing:.3px;padding:16px 22px;border-radius:100px;
+    box-shadow:0 8px 22px rgba(37,99,235,.38);
+    transition:transform .15s ease,box-shadow .15s ease;
+  }
+  .cta-button:hover{box-shadow:0 10px 26px rgba(37,99,235,.5);}
+  .cta-button:active{transform:scale(.98);}
+
+  .agehint{font-size:12px;color:var(--muted);margin-top:14px;}
+
+  /* Avertissement complet repliable (présent sur la page, crawlable) */
+  details.risk{
+    max-width:460px;width:100%;margin:18px auto 0;text-align:left;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;color:#cdd8f3;
+  }
+  details.risk summary{
+    cursor:pointer;list-style:none;padding:13px 16px;font-size:13px;font-weight:700;
+    color:#e6ecfb;display:flex;align-items:center;gap:8px;
+  }
+  details.risk summary::-webkit-details-marker{display:none;}
+  details.risk[open] summary{border-bottom:1px solid rgba(255,255,255,.12);}
+  details.risk .body{padding:14px 16px;font-size:12.5px;line-height:1.65;color:#b9c6ea;}
+
+  /* Footer légal */
+  footer{
+    max-width:460px;width:100%;margin:22px auto 0;text-align:center;color:var(--foot);
+  }
+  footer .legal-links{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;
+    font-size:12.5px;margin-bottom:12px;
+  }
+  footer .legal-links a,.cookie-link{color:#c5d2f1;text-decoration:none;border-bottom:1px solid rgba(197,210,241,.35);cursor:pointer;}
+  footer .legal-links a:hover,.cookie-link:hover{color:#fff;}
+  footer .disclaimer{font-size:11.5px;line-height:1.6;color:#8ea0cb;margin-bottom:10px;}
+  footer .copy{font-size:11.5px;color:#7384b3;}
+  .badge18{
+    display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;
+    color:#dbe4fb;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+    border-radius:999px;padding:4px 11px;margin-bottom:12px;
+  }
+
+  /* Bannière cookies (CNIL) — non bloquante, en bas */
+  .cookie-banner{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    background:#0c1330;color:#e9eefb;
+    border-top:1px solid rgba(255,255,255,.12);
+    box-shadow:0 -10px 40px rgba(0,0,0,.4);
+    padding:16px;display:none;
+  }
+  .cookie-banner.show{display:block;}
+  .cookie-inner{max-width:760px;margin:0 auto;}
+  .cookie-banner p{font-size:12.5px;line-height:1.6;color:#c8d2ef;margin-bottom:12px;}
+  .cookie-banner a{color:#9cc0ff;}
+  .cookie-actions{display:flex;flex-wrap:wrap;gap:10px;}
+  .cookie-actions button{
+    flex:1 1 auto;min-width:140px;font-size:13.5px;font-weight:700;cursor:pointer;
+    padding:11px 16px;border-radius:10px;border:1px solid transparent;
+  }
+  .btn-accept{background:linear-gradient(135deg,var(--brand1),var(--brand2));color:#fff;}
+  .btn-refuse{background:#1c2750;color:#e9eefb;border-color:rgba(255,255,255,.2);}
+  .btn-custom{background:transparent;color:#c8d2ef;border-color:rgba(255,255,255,.25);}
+
+  .cookie-prefs{display:none;margin-top:14px;border-top:1px solid rgba(255,255,255,.12);padding-top:14px;}
+  .cookie-prefs.show{display:block;}
+  .pref-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:9px 0;}
+  .pref-row h4{font-size:13px;margin-bottom:3px;}
+  .pref-row p{font-size:11.5px;color:#9fb0d6;margin:0;}
+  .switch{position:relative;width:42px;height:24px;flex-shrink:0;}
+  .switch input{opacity:0;width:0;height:0;}
+  .slider{position:absolute;inset:0;background:#33406e;border-radius:24px;transition:.2s;cursor:pointer;}
+  .slider::before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
+  .switch input:checked + .slider{background:#2563eb;}
+  .switch input:checked + .slider::before{transform:translateX(18px);}
+  .switch input:disabled + .slider{background:#2563eb;opacity:.55;cursor:not-allowed;}
+  .pref-save{margin-top:12px;width:100%;background:linear-gradient(135deg,var(--brand1),var(--brand2));color:#fff;border:none;border-radius:10px;padding:11px;font-weight:700;font-size:13.5px;cursor:pointer;}
+
+  /* Bouton flottant gérer cookies */
+  .cookie-fab{
+    position:fixed;left:14px;bottom:14px;z-index:40;
+    width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.18);
+    background:#0c1330;color:#cdd8f3;font-size:18px;cursor:pointer;display:none;
+    align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.35);
+  }
+  .cookie-fab.show{display:flex;}
+
+  @media (min-width:768px){
+    .card{padding:42px 34px 34px;max-width:480px;}
+    .name{font-size:28px;}
+    .tagline{font-size:16px;}
+    .bullets li{font-size:15px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="toprisk">
+    <span aria-hidden="true">⚠️</span>
+    <span>Trading à risque élevé de perte · Aucun résultat garanti · Réservé aux 18 ans et plus</span>
+  </div>
+
+  <main class="card">
+    <div class="avatar-wrapper">
+      <div class="avatar">
+        <!-- Pour utiliser le logo : remplacer la ligne ci-dessous par
+             <img src="validetapropfirm.jpeg" alt="ValideTaPropFirm"> et déposer l'image dans ce dossier -->
+        <span aria-hidden="true">VTPF</span>
+      </div>
+    </div>
+
+    <h1 class="name">ValideTaPropFirm</h1>
+    <span class="brandtag">VTPF · COMMUNAUTÉ &amp; MÉTHODE</span>
+
+    <p class="tagline">Communauté et méthode de préparation aux challenges de prop firms.</p>
+
+    <p class="servicenote">
+      Service de formation et d'accompagnement. <strong>VTPF n'est pas une prop firm</strong>,
+      n'est affilié à aucune prop firm et ne garantit aucun résultat ni aucun versement.
+    </p>
+
+    <ul class="bullets">
+      <li><span class="emoji">📚</span><span>Une méthode structurée pour préparer ton challenge prop firm : gestion du risque, plan de trading, discipline.</span></li>
+      <li><span class="emoji">👥</span><span>Une communauté active de traders qui se préparent et échangent ensemble sur Telegram.</span></li>
+      <li class="warn"><span class="emoji">⚠️</span><span>Le trading à effet de levier comporte un risque élevé de perte. Aucun résultat n'est garanti et la majorité des participants échouent à leur challenge.</span></li>
+    </ul>
+
+    <p class="pre-cta">Pose tes questions et rejoins-nous :</p>
+
+    <a href="#" class="cta-button" id="ctaButton" target="_blank" rel="noopener nofollow">
+      Rejoindre la communauté sur Telegram
+    </a>
+
+    <p class="agehint">🔞 Accès réservé aux personnes majeures (18 ans et plus).</p>
+  </main>
+
+  <details class="risk">
+    <summary><span aria-hidden="true">📄</span> Avertissement complet sur les risques &amp; non-affiliation</summary>
+    <div class="body" id="fullRisk"></div>
+  </details>
+
+  <footer>
+    <div class="badge18"><span aria-hidden="true">🔞</span> 18+ — Trading à risque de perte en capital</div>
+    <div class="legal-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="confidentialite.html">Politique de confidentialité</a>
+      <a href="cgu.html">CGU / CGV</a>
+      <span class="cookie-link" id="manageCookies">Gérer mes cookies</span>
+    </div>
+    <p class="disclaimer">
+      VTPF est un service de formation et d'accompagnement au sein d'une communauté. VTPF n'est pas une prop firm,
+      n'est ni partenaire ni affilié aux prop firms éventuellement citées (lesquelles demeurent la propriété de leurs
+      détenteurs respectifs), ne gère aucun capital pour le compte de ses membres et ne garantit aucune validation de
+      challenge ni aucun versement. Les performances passées ne préjugent pas des performances futures.
+    </p>
+    <p class="copy">© <span id="year"></span> ValideTaPropFirm — Tous droits réservés.</p>
+  </footer>
+
+  <!-- Bouton flottant : rouvrir les préférences cookies -->
+  <button class="cookie-fab" id="cookieFab" aria-label="Gérer mes cookies" title="Gérer mes cookies">🍪</button>
+
+  <!-- Bannière de consentement cookies (CNIL : pixel Meta bloqué tant que pas d'opt-in) -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentement aux cookies">
+    <div class="cookie-inner">
+      <p>
+        Nous utilisons des cookies et traceurs, dont le <strong>pixel publicitaire Meta (Facebook)</strong>, pour
+        mesurer notre audience et la performance de nos publicités. <strong>Aucun traceur publicitaire n'est activé
+        tant que vous n'avez pas cliqué sur « Tout accepter ».</strong> Vous pouvez accepter, refuser, ou choisir
+        finalité par finalité. Votre choix est conservé 6 mois et modifiable à tout moment via « Gérer mes cookies ».
+        En savoir plus : <a href="confidentialite.html">Politique de confidentialité</a>.
+      </p>
+      <div class="cookie-actions">
+        <button class="btn-accept" id="ckAccept">Tout accepter</button>
+        <button class="btn-refuse" id="ckRefuse">Tout refuser</button>
+        <button class="btn-custom" id="ckCustom">Personnaliser</button>
+      </div>
+      <div class="cookie-prefs" id="cookiePrefs">
+        <div class="pref-row">
+          <div>
+            <h4>Cookies essentiels</h4>
+            <p>Nécessaires au fonctionnement du site. Toujours actifs.</p>
+          </div>
+          <label class="switch"><input type="checkbox" checked disabled><span class="slider"></span></label>
+        </div>
+        <div class="pref-row">
+          <div>
+            <h4>Mesure d'audience &amp; publicité (pixel Meta)</h4>
+            <p>Mesure de la performance de nos publicités et retargeting via Meta Platforms Ireland Ltd.</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="prefAds"><span class="slider"></span></label>
+        </div>
+        <button class="pref-save" id="ckSave">Enregistrer mes choix</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* =========================================================================
+     CONFIGURATION — à renseigner avant la mise en ligne
+     ========================================================================= */
+  // 1) Lien du canal Telegram (ou lien de tracking qui redirige vers Telegram)
+  const TELEGRAM_URL = "https://t.me/+VOTRE_CANAL"; // <-- REMPLACER
+
+  // 2) ID du pixel Meta. Laisser vide ("") tant que vous n'en avez pas :
+  //    le pixel ne se chargera JAMAIS sans ID, ce qui reste conforme.
+  const META_PIXEL_ID = ""; // <-- REMPLACER par votre ID, ex. "1646952463177845"
+
+  /* =========================================================================
+     Texte de l'avertissement complet (affiché sur la page, donc crawlable Meta)
+     ========================================================================= */
+  const FULL_RISK = "AVERTISSEMENT SUR LES RISQUES. Le trading sur instruments financiers à effet de levier (CFD, Forex, futures) comporte un risque élevé de perte rapide en capital. Ces produits ne conviennent pas à tous les profils : vous pouvez perdre tout ou partie de votre capital. Les performances passées ne préjugent en rien des performances futures et ne constituent pas une garantie de résultats. VTPF est un service de formation, d'accompagnement et de mise en relation au sein d'une communauté ; VTPF n'est pas une prop firm, n'est ni affilié ni partenaire des prop firms qui pourraient être citées, ne gère aucun capital réel pour votre compte, ne passe aucun challenge à votre place et ne garantit la réussite d'aucun challenge ni aucun versement (payout). La réussite éventuelle d'un challenge dépend entièrement de vos propres décisions, de votre effort et des conditions de marché : une large majorité de participants échoue à son challenge. Aucun gain, aucune validation et aucun revenu ne sont garantis. Les marques de prop firms éventuellement mentionnées demeurent la propriété de leurs détenteurs respectifs. Avant toute décision, informez-vous et, si nécessaire, consultez un conseiller financier indépendant. Service réservé aux personnes majeures (18 ans et plus).";
+
+  document.getElementById("fullRisk").textContent = FULL_RISK;
+  document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("ctaButton").setAttribute("href", TELEGRAM_URL);
+
+  /* =========================================================================
+     CONSENTEMENT COOKIES (CNIL) + chargement conditionnel du pixel Meta
+     ========================================================================= */
+  const CONSENT_KEY = "vtpf_consent_v1";
+  const CONSENT_MAX_AGE = 1000 * 60 * 60 * 24 * 183; // ~6 mois
+
+  const banner = document.getElementById("cookieBanner");
+  const prefs  = document.getElementById("cookiePrefs");
+  const fab    = document.getElementById("cookieFab");
+  const prefAds = document.getElementById("prefAds");
+
+  let pixelLoaded = false;
+
+  function loadMetaPixel(){
+    if (pixelLoaded || !META_PIXEL_ID) return;
+    pixelLoaded = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+      (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+
+  function saveConsent(ads){
+    try{
+      localStorage.setItem(CONSENT_KEY, JSON.stringify({ ads:!!ads, ts:Date.now() }));
+    }catch(e){}
+  }
+  function readConsent(){
+    try{
+      const raw = localStorage.getItem(CONSENT_KEY);
+      if(!raw) return null;
+      const c = JSON.parse(raw);
+      if(!c || typeof c.ts !== "number") return null;
+      if(Date.now() - c.ts > CONSENT_MAX_AGE) return null; // expiré -> redemander
+      return c;
+    }catch(e){ return null; }
+  }
+  function applyConsent(c){
+    if(c && c.ads) loadMetaPixel();
+  }
+  function hideBanner(){ banner.classList.remove("show"); prefs.classList.remove("show"); fab.classList.add("show"); }
+  function showBanner(openPrefs){
+    banner.classList.add("show");
+    prefs.classList.toggle("show", !!openPrefs);
+    const c = readConsent();
+    prefAds.checked = !!(c && c.ads);
+  }
+
+  // Décision au chargement : pixel JAMAIS chargé sans consentement valide
+  (function init(){
+    const c = readConsent();
+    if(c){ applyConsent(c); fab.classList.add("show"); }
+    else { showBanner(false); }
+  })();
+
+  document.getElementById("ckAccept").addEventListener("click", function(){
+    saveConsent(true); loadMetaPixel(); hideBanner();
+  });
+  document.getElementById("ckRefuse").addEventListener("click", function(){
+    saveConsent(false); hideBanner();
+  });
+  document.getElementById("ckCustom").addEventListener("click", function(){
+    prefs.classList.toggle("show");
+  });
+  document.getElementById("ckSave").addEventListener("click", function(){
+    const ads = prefAds.checked;
+    saveConsent(ads);
+    if(ads) loadMetaPixel();
+    hideBanner();
+  });
+  function openManager(){ showBanner(true); }
+  document.getElementById("manageCookies").addEventListener("click", openManager);
+  fab.addEventListener("click", openManager);
+
+  /* Event Lead pour Meta : uniquement si le pixel a été chargé (donc consentement) */
+  document.getElementById("ctaButton").addEventListener("click", function(){
+    if (pixelLoaded && typeof fbq === "function") { fbq('track', 'Lead'); }
+  });
+  </script>
+
+</body>
+</html>
