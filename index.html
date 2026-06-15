@@ -281,7 +281,10 @@
           </div>
           <label class="switch"><input type="checkbox" id="prefAds"><span class="slider"></span></label>
         </div>
-        <button class="pref-save" id="ckSave">Enregistrer mes choix</button>
+        <div style="display:flex;gap:10px;margin-top:12px;">
+          <button class="btn-refuse" id="ckRefuse2" style="flex:1;border-radius:10px;padding:11px;font-weight:700;font-size:13.5px;cursor:pointer;">Tout refuser</button>
+          <button class="pref-save" id="ckSave" style="margin-top:0;flex:1;">Enregistrer mes choix</button>
+        </div>
       </div>
     </div>
   </div>
@@ -304,7 +307,16 @@
 
   document.getElementById("fullRisk").textContent = FULL_RISK;
   document.getElementById("year").textContent = new Date().getFullYear();
-  document.getElementById("ctaButton").setAttribute("href", TELEGRAM_URL);
+
+  // Fail-safe : tant que le lien Telegram n'est pas renseigné, on ne renvoie
+  // PAS le visiteur (ni le reviewer Meta) vers une page Telegram cassée.
+  const TELEGRAM_READY = !!TELEGRAM_URL && !/VOTRE_CANAL/i.test(TELEGRAM_URL);
+  const ctaEl = document.getElementById("ctaButton");
+  if (TELEGRAM_READY) {
+    ctaEl.setAttribute("href", TELEGRAM_URL);
+  } else {
+    ctaEl.setAttribute("href", "#");
+  }
 
   /* =========================================================================
      CONSENTEMENT COOKIES (CNIL) + chargement conditionnel du pixel Meta
@@ -367,9 +379,9 @@
   document.getElementById("ckAccept").addEventListener("click", function(){
     saveConsent(true); loadMetaPixel(); hideBanner();
   });
-  document.getElementById("ckRefuse").addEventListener("click", function(){
-    saveConsent(false); hideBanner();
-  });
+  function refuseAll(){ prefAds.checked = false; saveConsent(false); hideBanner(); }
+  document.getElementById("ckRefuse").addEventListener("click", refuseAll);
+  document.getElementById("ckRefuse2").addEventListener("click", refuseAll);
   document.getElementById("ckCustom").addEventListener("click", function(){
     prefs.classList.toggle("show");
   });
@@ -384,7 +396,12 @@
   fab.addEventListener("click", openManager);
 
   /* Event Lead pour Meta : uniquement si le pixel a été chargé (donc consentement) */
-  document.getElementById("ctaButton").addEventListener("click", function(){
+  ctaEl.addEventListener("click", function(e){
+    if (!TELEGRAM_READY) {
+      e.preventDefault();
+      alert("Le lien du canal Telegram n'est pas encore configuré. Renseignez TELEGRAM_URL dans index.html.");
+      return;
+    }
     if (pixelLoaded && typeof fbq === "function") { fbq('track', 'Lead'); }
   });
   </script>
